@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charly12Oficial</title>
+
+    <!-- Ícono en la pestaña del navegador -->
+    <link rel="icon" href="img/favicon.ico">
+
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #80CBC4;
+            color: black;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* ⭐ Botón del logo */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .menu-toggle img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-toggle img:hover {
+            transform: scale(1.08);
+        }
+
+        /* ⭐ Menú lateral */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -260px;
+            width: 240px;
+            height: 100%;
+            background-color: #004D40;
+            color: white;
+            padding-top: 100px;
+            transition: right 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            z-index: 999;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px 20px;
+            border-bottom: 1px solid #00796B;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #00695C;
+            padding-left: 30px;
+        }
+
+        .sidebar ul li span.icon {
+            font-size: 1.3rem;
+        }
+
+        header {
+            padding: 60px 20px 10px 20px;
+            background-color: #00000033;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: #000000;
+        }
+
+        p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* ⭐ Secciones dinámicas */
+        .section {
+            display: none;
+            padding: 30px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* ⭐ Botones ovalados */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 10px;
+            background-color: white;
+            color: #004D40;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid #004D40;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #004D40;
+            color: white;
+        }
+
+        /* ⭐ ZONA CENTRAL PARA FRASES ANIMADAS */
+        .zona-frases {
+            position: relative;
+            margin: 20px auto 0;
+            max-width: 800px;
+            height: 220px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 18px rgba(0,0,0,0.25);
+            backdrop-filter: blur(6px);
+        }
+
+        /* Fondos animados tipo burbujas */
+        .burbuja {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            background: radial-gradient(circle, rgba(255,255,255,0.9), transparent);
+            animation: moverBurbuja 10s linear infinite;
+        }
+
+        .burbuja.b1 { width: 80px; height: 80px; top: 10%; left: 5%; animation-duration: 12s; }
+        .burbuja.b2 { width: 100px; height: 100px; bottom: 5%; right: 10%; animation-duration: 14s; }
+        .burbuja.b3 { width: 60px; height: 60px; top: 60%; left: 40%; animation-duration: 11s; }
+        .burbuja.b4 { width: 90px; height: 90px; top: 20%; right: 30%; animation-duration: 16s; }
+
+        @keyframes moverBurbuja {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-20px) translateX(15px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        /* Contenedor de frases dentro de la zona central */
+        .frases-movibles {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .frase-item {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) translateX(40px);
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00332E;
+            opacity: 0;
+            white-space: nowrap;
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .frase-activa {
+            opacity: 1;
+            transform: translate(-50%, -50%) translateX(0);
+        }
+
+        .frase-salida {
+            opacity: 0;
+            transform: translate(-50%, -50%) translateX(-40px);
+        }
+        /* ⭐ Logo circular con nombre */ .logo-circulo { width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, #004D40, #00796B, #80CBC4); display: flex; justify-content: center; align-items: center; box-shadow: 0 0 15px rgba(0,0,0,0.3); transition: transform 0.3s ease; cursor: pointer; } .logo-circulo span { color: white; font-size: 1.1rem; font-weight: bold; text-shadow: 0 0 5px rgba(0,0,0,0.4); } .logo-circulo:hover { transform: scale(1.08); } 
+    </style>
+</head>
+
+<body>
+
+    <!-- ⭐ LOGO COMO BOTÓN -->
+    <div class="menu-toggle" onclick="toggleSidebar()">
+    <div class="logo-circulo">
+        <span>Charly12</span>
+    </div>
+</div>
+
+
+    <!-- ⭐ MENÚ LATERAL -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li>
+    <a href="biografia.html" style="color:white; text-decoration:none; display:flex; align-items:center; gap:10px;">
+        <span class="icon">📘</span> Biografía
+    </a>
+</li>
+
+<li>
+    <a href="sobre-mi.html" style="color:white; text-decoration:none; display:flex; align-items:center; gap:10px;">
+        <span class="icon">👤</span> Sobre mí
+    </a>
+</li>
+
+<li onclick="showSection('contenido')">
+    <span class="icon">🎬</span> Contenido
+</li>
+
+<li onclick="showSection('redes')">
+    <span class="icon">🌐</span> Redes
+</li>
+
+        </ul>
+    </div>
+
+    <header>
+        <h1>Charly12Oficial</h1>
+        <p>Conecta conmigo en todas mis plataformas</p>
+    </header>
+
+    <!-- ⭐ ZONA CENTRAL CON FRASES ANIMADAS -->
+    <div class="zona-frases">
+        <!-- Figuras de fondo -->
+        <div class="burbuja b1"></div>
+        <div class="burbuja b2"></div>
+        <div class="burbuja b3"></div>
+        <div class="burbuja b4"></div>
+
+        <!-- Frases animadas -->
+        <div class="frases-movibles" id="frasesAnimadas"></div>
+    </div>
+
+    <!-- ⭐ SECCIÓN: SOBRE MÍ -->
+    <div id="sobre" class="section active">
+        <h2>Sobre mí</h2>
+        <p>Pronto agregarás aquí lo que trata tu página.</p>
+    </div>
+
+    <!-- ⭐ SECCIÓN: CONTENIDO -->
+    <div id="contenido" class="section">
+        <h2>Contenido</h2>
+        <p>Aquí irán tus imágenes y videos.</p>
+    </div>
+
+    <!-- ⭐ SECCIÓN: REDES -->
+    <div id="redes" class="section">
+        <h2>Mis Redes Sociales</h2>
+
+        <a href="https://www.instagram.com/charly12oficial/" class="btn" target="_blank">Instagram</a>
+        <a href="https://facebook.com/TU_USUARIO" class="btn" target="_blank">Facebook</a>
+        <a href="https://www.tiktok.com/@charly12oficial?lang=es-419" class="btn" target="_blank">TikTok</a>
+        <a href="https://youtube.com/@TU_USUARIO" class="btn" target="_blank">YouTube</a>
+    </div>
+
+    <!-- ⭐ SCRIPT -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.style.right = sidebar.style.right === "0px" ? "-260px" : "0px";
+        }
+
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        // ⭐ FRASES ANIMADAS EN EL CENTRO
+        const frases = [
+            "Tu esfuerzo habla por ti",
+            "El éxito es la suma de tus hábitos",
+            "No esperes el momento perfecto, créalo",
+            "Tu fuerza interior es real",
+            "Eres más grande que tus miedos",
+            "Nunca te rindas, lo mejor está por venir",
+            "Tu historia apenas comienza",
+            "Cada día es una nueva oportunidad",
+            "Lo que sueñas, lo puedes lograr",
+            "Pequeños pasos crean grandes cambios",
+            "Eres suficiente tal como eres",
+            "Confía en tu proceso",
+            "Tu paz vale más que cualquier cosa",
+            "No te rindas, estás más cerca de lo que crees",
+            "Haz algo hoy que tu yo del futuro agradezca",
+            "No pares hasta estar orgulloso",
+            "Lo que hoy duele, mañana te hará más fuerte",
+            "Tu luz no depende de la opinión de nadie",
+            "Mereces cosas buenas",
+            "Cada día puedes empezar de nuevo",
+            "Tu esfuerzo te llevará lejos",
+            "Tu crecimiento es real",
+            "Tu vida tiene propósito",
+            "Tu historia inspira",
+            "Tu vida importa",
+            "Eres más fuerte de lo que imaginas",
+            "Tu dolor no define tu destino",
+            "Tu proceso es valioso",
+            "Tu vida tiene sentido",
+            "Tu espíritu es inquebrantable"
+        ];
+
+        let indice = 0;
+        const contenedorFrases = document.getElementById("frasesAnimadas");
+
+        function mostrarNuevaFrase() {
+            // Eliminar frase anterior con animación de salida
+            const fraseActual = contenedorFrases.querySelector(".frase-item");
+            if (fraseActual) {
+                fraseActual.classList.remove("frase-activa");
+                fraseActual.classList.add("frase-salida");
+                setTimeout(() => {
+                    if (fraseActual && fraseActual.parentNode) {
+                        fraseActual.parentNode.removeChild(fraseActual);
+                    }
+                }, 1000);
+            }
+
+            // Crear nueva frase
+            const nuevaFrase = document.createElement("div");
+            nuevaFrase.className = "frase-item";
+            nuevaFrase.textContent = frases[indice];
+
+            // Posición ligeramente aleatoria dentro del centro
+            const offsetY = (Math.random() * 40) - 20; // entre -20 y 20
+            nuevaFrase.style.top = `calc(50% + ${offsetY}px)`;
+
+            contenedorFrases.appendChild(nuevaFrase);
+
+            // Activar animación de entrada
+            setTimeout(() => {
+                nuevaFrase.classList.add("frase-activa");
+            }, 50);
+
+            indice = (indice + 1) % frases.length;
+        }
+
+        mostrarNuevaFrase();
+        setInterval(mostrarNuevaFrase, 3500);
+    </script>
+
+</body>
+</html>
+
+
+
+
+

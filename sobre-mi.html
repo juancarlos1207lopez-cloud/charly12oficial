@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre mí - Charly12Oficial</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+
+    /* Fondo con transición entre 5 colores */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      overflow-y: scroll;
+      position: relative;
+      animation: cambioColores 25s infinite alternate ease-in-out;
+    }
+
+    @keyframes cambioColores {
+      0%   { background: linear-gradient(to right, #004D40, #00796B); }
+      25%  { background: linear-gradient(to right, #00695C, #00897B); }
+      50%  { background: linear-gradient(to right, #01579B, #0288D1); }
+      75%  { background: linear-gradient(to right, #4527A0, #5E35B1); }
+      100% { background: linear-gradient(to right, #004D40, #00796B); }
+    }
+
+    /* Menú lateral con glassmorphism */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 230px;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      border-right: 1px solid rgba(255,255,255,0.2);
+      padding-top: 40px;
+      z-index: 20;
+      box-shadow: 5px 0 20px rgba(0,0,0,0.2);
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      padding: 15px 20px;
+      font-size: 1.1rem;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .sidebar li:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Logo arriba a la derecha con animación de brillo */
+    .logo-circular {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00E676, #00C853);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #003300;
+      border: 3px solid white;
+      z-index: 30;
+      animation: brillo 3s infinite ease-in-out;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    }
+
+    @keyframes brillo {
+      0%   { box-shadow: 0 0 10px #00E676; }
+      50%  { box-shadow: 0 0 25px #00FFAA; }
+      100% { box-shadow: 0 0 10px #00E676; }
+    }
+
+    /* Óvalos flotantes */
+    .fondo-ovales {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .ovalo {
+      position: absolute;
+      width: 250px;
+      height: 350px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      filter: blur(20px);
+      animation: flotar 10s infinite ease-in-out alternate;
+    }
+
+    .ovalo:nth-child(1) { top: 10%; left: 5%; animation-duration: 12s; }
+    .ovalo:nth-child(2) { top: 60%; left: 70%; animation-duration: 14s; }
+    .ovalo:nth-child(3) { top: 30%; left: 40%; animation-duration: 11s; }
+
+    @keyframes flotar {
+      0% { transform: translateY(0px) translateX(0px); }
+      100% { transform: translateY(-40px) translateX(30px); }
+    }
+
+    /* Contenido principal */
+    .sobre-mi {
+      margin-left: 260px;
+      padding: 60px 20px;
+      max-width: 800px;
+      z-index: 10;
+      position: relative;
+      color: white;
+    }
+
+    .titulo-sobre-mi {
+      font-size: 2.8rem;
+      font-weight: bold;
+      margin-bottom: 25px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .descripcion,
+    .descripcion2 {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin: 0 auto 25px auto;
+      animation: fadeInUp 2s ease;
+      max-width: 650px;
+    }
+
+    .btn-sobre-mi {
+      display: inline-block;
+      padding: 12px 25px;
+      background: #00BFA5;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .btn-sobre-mi:hover {
+      background: #00796B;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Footer animado */
+    footer {
+      margin-left: 260px;
+      margin-top: 60px;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      animation: footerGlow 6s infinite alternate ease-in-out;
+    }
+
+    @keyframes footerGlow {
+      0%   { box-shadow: 0 0 10px rgba(255,255,255,0.3); }
+      50%  { box-shadow: 0 0 25px rgba(255,255,255,0.6); }
+      100% { box-shadow: 0 0 10px rgba(255,255,255,0.3); }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Óvalos flotantes -->
+  <div class="fondo-ovales">
+    <div class="ovalo"></div>
+    <div class="ovalo"></div>
+    <div class="ovalo"></div>
+  </div>
+
+  <!-- Menú lateral -->
+  <div class="sidebar">
+    <ul>
+      <li><a href="biografia.html"><span class="icon">📘</span> Biografía</a></li>
+      <li><a href="sobre-mi.html"><span class="icon">👤</span> Sobre mí</a></li>
+      <li><a href="contenido.html"><span class="icon">🎬</span> Contenido</a></li>
+      <li><a href="redes.html"><span class="icon">🌐</span> Redes</a></li>
+    </ul>
+  </div>
+
+  <!-- Logo arriba a la derecha -->
+  <div class="logo-circular">
+    Charly12Oficial
+  </div>
+
+  <!-- Contenido principal -->
+  <section class="sobre-mi">
+    <h1 class="titulo-sobre-mi">Sobre mí</h1>
+
+    <p class="descripcion">
+      Bienvenidos a este espacio donde la reflexión, la fe y la creatividad se encuentran.
+      Aquí comparto contenido auténtico, positivo y con un toque personal que busca inspirar y acompañar.
+    </p>
+
+    <p class="descripcion2">
+      Soy Charly12Oficial, un creador digital apasionado por la comunicación, el diseño web y la expresión auténtica.
+      Me gusta transformar ideas en experiencias visuales que conectan con las personas y cuentan historias reales.
+    </p>
+
+    <a href="biografia.html" class="btn-sobre-mi">Leer mi biografía completa</a>
+  </section>
+
+  <!-- Footer animado -->
+  <footer>
+    © 2025 Charly12Oficial — Creado con pasión, fe y creatividad.
+  </footer>
+
+</body>
+</html>
+
+
